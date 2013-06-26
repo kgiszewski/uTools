@@ -4,22 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using umbraco.cms.businesslogic.template;
 using System.Web.UI.HtmlControls;
-using umbraco.cms.businesslogic.macro;
+using System.IO;
+using System.Text;
 
+using umbraco.cms.businesslogic.macro;
+using umbraco.cms.businesslogic.template;
 using umbraco.DataLayer;
+using umbraco.BusinessLogic;
+
+using HtmlAgilityPack;
 
 
 namespace uTools
 {
     public partial class Macro : System.Web.UI.Page
     {
+
+        private Dictionary<string, string> templates = new Dictionary<string, string>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             uToolsCore.Authorize();
 
             umbraco.cms.businesslogic.macro.Macro[] allMacros = umbraco.cms.businesslogic.macro.Macro.GetAll();
+            ReadInTemplates();
             
             HtmlGenericControl table, thead, tr, th, td, ul, li;
 
@@ -71,6 +80,10 @@ namespace uTools
             th = new HtmlGenericControl("th");
             tr.Controls.Add(th);
             th.InnerHtml = "<a href='#'>Properties</a>";
+
+            th = new HtmlGenericControl("th");
+            tr.Controls.Add(th);
+            th.InnerHtml = "<a href='#'>Template Usage</a>";
 
             th = new HtmlGenericControl("th");
             tr.Controls.Add(th);
@@ -132,9 +145,68 @@ namespace uTools
                 tr.Controls.Add(td);
                 td.Controls.Add(ul);
 
+                //templates
+                td = new HtmlGenericControl("td");
+                tr.Controls.Add(td);
+                ul = new HtmlGenericControl("ul");
+                td.Controls.Add(ul);
+
+                List<string> macroList = new List<string>();
+
+                foreach(KeyValuePair<string, string> thisTemplate in templates){
+
+                    try
+                    {
+                        HtmlDocument document = new HtmlDocument();
+                        document.LoadHtml(thisTemplate.Value);
+
+                        //umbraco.BusinessLogic.Log.Add(LogTypes.Custom, 0, "tHtml=>"+thisTemplate.Value);
+
+                        foreach (HtmlNode macro in document.DocumentNode.SelectNodes("//div"))
+                        {
+                            //umbraco.BusinessLogic.Log.Add(LogTypes.Custom, 0, "macro found=>" +macro.OuterHtml);
+
+                            HtmlAttribute attribute = macro.Attributes["Alias"];
+
+                            if (attribute != null && attribute.Value == thisMacro.Alias && !macroList.Contains(thisTemplate.Key))
+                            {
+                                li = new HtmlGenericControl("li");
+                                ul.Controls.Add(li);
+                                li.InnerHtml = thisTemplate.Key;
+
+                                macroList.Add(thisTemplate.Key);
+                            }
+                        }
+                    }
+                    catch {
+                                            
+                    }
+                }
+
                 td = new HtmlGenericControl("td");
                 tr.Controls.Add(td);
                 td.InnerHtml = "<a rel='" + thisMacro.Id + "' class='editMacro'>Edit</a>";
+            }
+        }
+
+        private void ReadInTemplates()
+        {
+            string[] masterpages = Directory.GetFiles(Server.MapPath("~/masterpages"));
+            foreach (string filename in masterpages)
+            {
+                StringBuilder sb = new StringBuilder();
+                using (StreamReader sr = new StreamReader(filename))
+                {
+                    String line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        sb.AppendLine(line);
+                    }
+                }
+
+                if(!templates.ContainsKey(Path.GetFileName(filename))){
+                    templates.Add(Path.GetFileName(filename), sb.ToString().Replace("umbraco:Macro","div"));
+                }
             }
         }
 
