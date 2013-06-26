@@ -46,6 +46,9 @@
     <Reference Include="controls">
       <HintPath>..\..\..\References\4.11\controls.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>Z:\Umbraco Dev\References\4.11\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="interfaces, Version=1.0.4811.18151, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\References\4.11\interfaces.dll</HintPath>
