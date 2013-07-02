@@ -1,0 +1,17 @@
+img{
+    width: 20px;
+    float: left;
+    margin-right: 5px;
+}
+
+td{
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+h1{
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 5px;
+}

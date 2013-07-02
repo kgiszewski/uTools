@@ -1,0 +1,18 @@
+#controlsWrapper table tr td{
+  border: none;
+}
+
+#resultsWrapper td:nth-child(1){
+  color: blue;
+}
+
+input[type=button], select{
+  width: 100%;
+}
+
+
+input[type=text]{
+  width: 30px;
+  margin-left: 5px;
+  text-align: center;
+}

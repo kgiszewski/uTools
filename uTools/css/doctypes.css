@@ -1,0 +1,14 @@
+img{
+    width: 20px;
+    float: left;
+    margin-right: 5px;
+}
+
+td{
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+td:nth-child(1),td:nth-child(2),td:nth-child(5),td:nth-child(6),td:nth-child(7),td:nth-child(9){
+    text-align: center;
+}

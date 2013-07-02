@@ -15,11 +15,9 @@ using umbraco.BusinessLogic;
 
 using HtmlAgilityPack;
 
-
 namespace uTools
 {
-    public partial class Macro : System.Web.UI.Page
-    {
+    public partial class Macro : System.Web.UI.Page    {
 
         private Dictionary<string, string> templates = new Dictionary<string, string>();
 

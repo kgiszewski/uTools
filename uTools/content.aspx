@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="/umbraco/masterpages/umbracoPage.Master" AutoEventWireup="true" CodeBehind="content.aspx.cs" Inherits="uTools.Content" %>
+﻿<%@ Page Language="C#" MasterPageFile="/umbraco/masterpages/umbracoPage.Master" AutoEventWireup="true" CodeBehind="Content.aspx.cs" Inherits="uTools.Content" %>
 <%@ Register Namespace="umbraco.uicontrols" Assembly="controls" TagPrefix="umb"%>
 <%@ Register TagPrefix="umb" Namespace="ClientDependency.Core.Controls" Assembly="ClientDependency.Core" %>
 

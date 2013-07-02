@@ -1,0 +1,38 @@
+.docTypeDiv{
+  padding: 0;
+}
+
+td{
+  padding: 3px;
+  vertical-align: top;
+}
+
+td a{
+  display: block;
+  background: #ccc;
+  padding: 2px;
+  border: 1px solid #666;
+}
+
+a.editDataType{
+  border: none;
+  background: transparent;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+}
+
+td:nth-child(4), td:nth-child(5){
+  text-align: center;
+}
+
+.prevalues{
+  height: 1em;
+  resize:both;
+}
+
+div{
+  text-align: left;
+}
